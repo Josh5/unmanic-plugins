@@ -26,6 +26,7 @@ plugin_ids=(
     "encoder_video_hevc_vaapi"
     "extract_srt_subtitles_to_files"
     "file_size_metrics"
+    "ignore_completed_tasks"
     "ignore_files_recently_modified"
     "ignore_over_size"
     "ignore_under_size"

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - '**'
+      - 'pr-**'
       - '!template'
   pull_request:
     branches:
@@ -20,10 +21,9 @@ jobs:
     steps:
     # Checkout
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
-        submodules: 'recursive'
 
     #  _____                            ____                           _   
     # | ____|_ __  ___ _   _ _ __ ___  |  _ \ _ __ ___  ___  ___ _ __ | |_ 
@@ -31,6 +31,26 @@ jobs:
     # | |___| | | \__ \ |_| | | |  __/ |  __/| | |  __/\__ \  __/ | | | |_ 
     # |_____|_| |_|___/\__,_|_|  \___| |_|   |_|  \___||___/\___|_| |_|\__|
     #                                                                      
+    - name: Check all plugins exist in source directory
+      if: success() || failure()
+      run: |
+        success=0
+        for root_dir in ./*; do
+            if [ -d "${root_dir:?}" ]; then
+                # Ignore docs directory
+                [ "$(basename ${root_dir:?})" == "docs" ] && continue
+                # The only other directory should be "source"
+                if [ "$(basename ${root_dir:?})" != "source" ]; then
+                    echo "FAIL - Found an unexpected directory in '${root_dir:?}'. All plugins should be added to './source/'."
+                    success=1
+                fi
+            fi
+        done
+        if [ ${success} -gt 0 ]; then
+            exit 1
+        else
+            echo "PASS - Found a correct directory structure in the project root."
+        fi
     - name: Check .gitignore in all plugin folders
       if: success() || failure()
       run: |
@@ -207,7 +227,7 @@ jobs:
       run: echo 'true' > success_file.txt
     - name: Upload success file
       if: success()
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: success_file
         path: success_file.txt
@@ -221,7 +241,7 @@ jobs:
 
     # Fetch and read sucess file
     - name: Download success file from previous job
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         path: ./artifacts/
     - name: Read success file
@@ -234,9 +254,9 @@ jobs:
     # Checkout
     - name: Checkout
       if: steps.previous_jobs_success.outputs.IS_SUCCESS == 'true'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
-        submodules: 'recursive'
+        submodules: recursive
 
     # Ensure repo is checked out
     - name: Check repo for config file
@@ -265,13 +285,13 @@ jobs:
     # Setup python environment
     - name: Set up Python 3.8
       if: success()
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
 
     # Setup node environment
     - name: Set up node 16
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '16'
 
@@ -284,7 +304,7 @@ jobs:
 
     # Deploy to repo branch
     - name: Deploy repository
-      if: success() && (github.ref == 'refs/heads/master')
+      if: success() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/official')
       uses: s0/git-publish-subdir-action@develop
       env:
         REPO: self

@@ -1,0 +1,73 @@
+
+---
+
+### Config description:
+
+#### <span style="color:blue">Encoder</span>
+
+Select from the dropdown which codec you wish to use for creating your stereo clone.
+
+
+
+#### <span style="color:blue">Max input stream packet buffer</span>
+When transcoding audio and/or video streams, ffmpeg will not begin writing into the output until it has one packet for each such stream. 
+While waiting for that to happen, packets for other streams are buffered. 
+This option sets the size of this buffer, in packets, for the matching output stream.
+
+FFmpeg docs refer to this value as '-max_muxing_queue_size'
+
+
+#### <span style="color:blue">Write your own FFmpeg params</span>
+This free text input allows you to write any FFmpeg params that you want. 
+This is for more advanced use cases where you need finer control over the file transcode.
+
+:::note
+These params are added in three different places:
+1. **MAIN OPTIONS** - After the default generic options.
+   ([Main Options Docs](https://ffmpeg.org/ffmpeg.html#Main-options))
+1. **ADVANCED OPTIONS** - After the input file has been specified.
+   ([Advanced Options Docs](https://ffmpeg.org/ffmpeg.html#Advanced-options))
+1. **AUDIO OPTIONS** - After the audio stream is mapped and the encoder is selected.
+   ([Audio Options Docs](https://ffmpeg.org/ffmpeg.html#Audio-Options))
+   ([Advanced Audio Options Docs](https://ffmpeg.org/ffmpeg.html#Advanced-Audio-options))
+
+```
+ffmpeg \
+    -hide_banner \
+    -loglevel info \
+    <CUSTOM MAIN OPTIONS HERE> \
+    -i /path/to/input/video.mkv \
+    <CUSTOM ADVANCED OPTIONS HERE> \
+    -map 0:0 -map 0:1 \
+    -c:v:0 copy \
+    -c:a:1 aac \
+    <CUSTOM AUDIO OPTIONS HERE> \
+    -ac '2' \
+    -metadata:s:a:1 "title=[Stereo]" \
+    -y /path/to/output/video.mkv 
+```
+:::
+
+---
+
+#### Custom FFmpeg params Examples:
+
+###### <span style="color:magenta">Constant bit rate using 160k</span>
+**<span style="color:blue">Main options</span>**
+> *(NONE)*
+> 
+**<span style="color:blue">Advanced options</span>**
+> *(NONE)*
+> 
+**<span style="color:blue">Audio options</span>**
+> `-b:a 160k`
+
+###### <span style="color:magenta">Variable bit rate</span>
+**<span style="color:blue">Main options</span>**
+> *(NONE)*
+> 
+**<span style="color:blue">Advanced options</span>**
+> *(NONE)*
+> 
+**<span style="color:blue">Audio options</span>**
+> `-q:a 2`

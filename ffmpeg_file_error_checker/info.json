@@ -1,0 +1,20 @@
+{
+    "author": "Josh.5",
+    "compatibility": [
+        1,
+        2
+    ],
+    "description": "Test for errors and corruption in your video files",
+    "icon": "https://raw.githubusercontent.com/Josh5/unmanic.plugin.ffmpeg_file_error_checker/master/icon.png",
+    "id": "ffmpeg_file_error_checker",
+    "name": "FFmpeg Video Error Checker",
+    "platform": [
+        "all"
+    ],
+    "priorities": {
+        "on_library_management_file_test": 99,
+        "on_worker_process": 0
+    },
+    "tags": "video,ffmpeg,library file test",
+    "version": "0.0.3"
+}

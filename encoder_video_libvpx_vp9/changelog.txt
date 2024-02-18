@@ -1,0 +1,6 @@
+[b][color=56adda]0.0.2[/color][/b]
+• Tidy up plugin code.
+• Fix incorrect logger name
+
+[b][color=56adda]0.0.1[/color][/b]
+• initial version

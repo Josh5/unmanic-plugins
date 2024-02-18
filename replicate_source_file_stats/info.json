@@ -1,0 +1,16 @@
+{
+    "author": "Josh.5",
+    "compatibility": [
+        2
+    ],
+    "description": "Fetch the stats from the original source file and apply them to all destination files once all final file movements have been completed.",
+    "icon": "https://raw.githubusercontent.com/Josh5/unmanic.plugin.replicate_source_file_stats/master/icon.png",
+    "id": "replicate_source_file_stats",
+    "name": "Replicate all source file stats",
+    "priorities": {
+        "on_postprocessor_file_movement": 0,
+        "on_postprocessor_task_results": 99
+    },
+    "tags": "post-processor, permissions",
+    "version": "0.0.1"
+}

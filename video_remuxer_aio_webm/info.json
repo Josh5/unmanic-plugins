@@ -1,0 +1,19 @@
+{
+    "author": "Josh.5",
+    "compatibility": [
+        1,
+        2
+    ],
+    "description": "Remux a video file to the WebM container",
+    "icon": "",
+    "id": "video_remuxer_aio_webm",
+    "name": "Remux Video Files to WebM",
+    "platform": [
+        "all"
+    ],
+    "priorities": {
+        "on_worker_process": 3
+    },
+    "tags": "audio,video,ffmpeg",
+    "version": "0.0.3"
+}

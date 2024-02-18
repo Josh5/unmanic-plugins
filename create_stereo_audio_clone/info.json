@@ -1,0 +1,20 @@
+{
+    "author": "Josh.5",
+    "compatibility": [
+        1,
+        2
+    ],
+    "description": "Create a stereo clone of all audio streams if the original stream is more than 2 channels. If the source file already has a stereo stream created by this Plugin, this is ignored and no clone is generated.",
+    "icon": "https://raw.githubusercontent.com/Josh5/unmanic.plugin.create_stereo_audio_clone/master/icon.png",
+    "id": "create_stereo_audio_clone",
+    "name": "Create stereo audio stream from surround sound",
+    "platform": [
+        "all"
+    ],
+    "priorities": {
+        "on_library_management_file_test": 99,
+        "on_worker_process": 5
+    },
+    "tags": "audio,ffmpeg,library file test",
+    "version": "0.0.3"
+}

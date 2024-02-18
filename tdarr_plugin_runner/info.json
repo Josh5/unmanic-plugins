@@ -1,0 +1,19 @@
+{
+    "author": "Josh.5",
+    "compatibility": [
+        2
+    ],
+    "description": "Install and execute one to many Tdarr Plugins from Unmanic",
+    "icon": "https://raw.githubusercontent.com/Josh5/unmanic.plugin.tdarr_plugin_runner/master/icon.png",
+    "id": "tdarr_plugin_runner",
+    "name": "Tdarr Plugin Runner",
+    "platform": [
+        "linux"
+    ],
+    "priorities": {
+        "on_worker_process": 0,
+        "render_frontend_panel": 0
+    },
+    "tags": "video,ffmpeg,handbrake,data panel",
+    "version": "0.0.1~beta5"
+}
